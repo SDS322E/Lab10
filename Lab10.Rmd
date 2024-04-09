@@ -1,0 +1,148 @@
+---
+title: "Lab 10"
+output: html_document
+---
+
+```{r global_options, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = TRUE,  
+                      warning = FALSE, message = FALSE, 
+                      fig.align = "center",
+                      R.options = list(max.print=100))
+
+# Edit the file starting below
+```
+
+### Enter the names of the group members here:
+
+**This assignment is due by the end of the lab. Only one student in the group submits a pdf file on Gradescope.**
+
+*For all questions, include the R commands/functions that you used to find your answer (show R chunk). Answers without supporting code will not receive credit. Write full sentences to describe your findings.*
+
+Let's load the appropriate packages for today:
+
+```{r, warning=FALSE}
+library(tidyverse)
+library(plotROC)
+library(caret)
+```
+
+Upload the dataset for this lab from GitHub:
+
+```{r}
+# Upload data from GitHub
+Insurance <- read_csv("Insurance.csv")
+```
+
+This dataset includes 85 predictors that measure demographic characteristics for 5,822 individuals. The response variable is `Purchase`, which indicates whether or not a given individual purchased a caravan insurance policy. 
+
+The goal of the lab is to predict if an individual is likely to purchase a caravan insurance policy or not, depending on some demographic information.
+
+------------------------------------------------------------------------
+
+### Question 1: (2 pts)
+
+In the `Insurance` dataset, what proportion of individuals purchased a caravan insurance policy?
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+**Your answer goes here. Write sentences in bold.**
+
+------------------------------------------------------------------------
+
+### Question 2: (5 pts)
+
+Recode the response variable `Purchase` as 0 if an individual did not purchase a caravan insurance policy, and 1 if they did. 
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Fit a logistic regression model to predict the response based on all 85 predictors. Call that model `Insurance_log`.
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Only keep the variable `Purchase` in `Insurance`, then save the probabilities of purchasing a caravan insurance policy as a variable called `predictions` and find the associated `predicted` outcome (taking the value 1 if prediction > 0.5, and the value 0 otherwise). Save the results in an object called `pred_log`.
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Using the `table()` function, build the confusion matrix using the `predicted` and `Purchase` columns of the `pred_log` object for the logistic regression model. What do you notice?
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+**Your answer goes here. Write sentences in bold.**
+
+------------------------------------------------------------------------
+
+### Question 3: (3 pts)
+
+Let's consider a k-nearest neighbor (kNN) classifier. Why do you think we should consider scaling our variables when using such a classifier? 
+
+**Your answer goes here. Write sentences in bold.**
+
+Scale all variables in the `Insurance` data frame *except* `Purchase` and save the resulting dataset as `Insurance_scaled`. (HINT: You can use `mutate()` and `across()` to do this if you want.)
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+------------------------------------------------------------------------
+
+### Question 4: (5 pts)
+
+Using the `knn3()` function, fit a k-nearest neighbor classifier with `k = 5` on `Insurance_scaled`. Save the resulting model output as an R object named `Insurance_kNN`.
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Only keep the variable `Purchase` in `Insurance_scaled`, then save the proportions of purchasing a caravan insurance policy as a variable called `predictions` and find the associated `predicted` outcome (taking the value 1 if prediction > 0.5, and the value 0 otherwise). Save the resulting data frame in an object named `pred_kNN`.
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Build the confusion matrix for the kNN classifier. 
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+Suppose that the company would like to visit potential customer but since there are some costs involved in doing so, they only try to sell insurance to customers who are likely to buy it. According to the confusion matrix, what is the success rate for selling a caravan insurance policy?
+
+**Your answer goes here. Write sentences in bold.**
+
+------------------------------------------------------------------------
+
+### Question 5: (3 pts)
+
+Build a ROC curve (using `geom_roc()`) to compare the logistic regression model to the kNN classifier in predicting the purchase of a caravan insurance policy. How do those compare?
+
+```{r}
+# your code goes below (make sure to edit comment)
+
+```
+
+**Your answer goes here. Write sentences in bold.**
+
+------------------------------------------------------------------------
+
+### Formatting: (2 pts)
+
+Comment your code, write full sentences, and knit your file!
